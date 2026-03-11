@@ -1,1 +1,5 @@
-<Solution />
+<Solution>
+  <Project Path="Tasneem_Shop.DataAccess/Tasneem_Shop.DataAccess.csproj" />
+  <Project Path="Tasneem_Shop.Entities/Tasneem_Shop.Entities.csproj" />
+  <Project Path="Tasneem_Shop.Web/Tasneem_Shop.Web.csproj" />
+</Solution>
