@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Tasneem_Shop.DataAccess.Context;
+
 namespace Tasneem_Shop.Web
 {
     public class Program
@@ -8,6 +11,11 @@ namespace Tasneem_Shop.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
