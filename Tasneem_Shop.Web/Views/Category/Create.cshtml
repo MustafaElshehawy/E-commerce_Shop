@@ -1,13 +1,13 @@
 ﻿@model Tasneem_Shop.Entities.Models.Category
 @{
-    ViewData["Title"] = "Create Category";
+    ViewBag.PageTitle = "Category Management";
+    ViewBag.CardTitle = "Add Category";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>
 }
-<div class="container mt-4">
-    <h2>Create New Category</h2>
-    <hr />
+<div class="container mt-3">
     <form asp-action="Create" method="post">    
         <div class="mb-3">
             <label asp-for="Name" class="form-label"></label>

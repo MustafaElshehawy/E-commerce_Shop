@@ -1,13 +1,13 @@
 ﻿@model Tasneem_Shop.Entities.Models.Category
 @{
-    ViewData["Title"] = "Edit Category";
+    ViewBag.PageTitle = "Category Management";
+    ViewBag.CardTitle = "Edit Category";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-<div class="container mt-4">
-    <h2>Edit Category</h2>
-    <hr />
+<div class="container mt-3">
     <form asp-action="Edit" method="post">
         <div class="mb-3">
             <input hidden asp-for="Id"/>
