@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Tasneem_Shop.Web.Models;
+using Tasneem_Shop.Entities.Models;
 
 namespace Tasneem_Shop.Web.Controllers
 {

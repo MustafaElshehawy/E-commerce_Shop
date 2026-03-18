@@ -1,4 +1,4 @@
-namespace Tasneem_Shop.Web.Models
+namespace Tasneem_Shop.Entities.Models
 {
     public class ErrorViewModel
     {
