@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="~/Dashboard/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- Toaster-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -203,11 +206,8 @@
           <div class="col-sm-6">
             <h1>@ViewBag.PageTitle</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
+                        <div class=" float-sm-right">
+            <partial name="_Toaster" />
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -268,6 +268,7 @@
 <script src="~/Dashboard/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="Dashboard/dist/js/demo.js"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

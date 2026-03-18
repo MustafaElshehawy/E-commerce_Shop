@@ -30,6 +30,8 @@ namespace Tasneem_Shop.Web.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+                TempData["message"] = "Data Has created succesfully";
+
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -59,6 +61,8 @@ namespace Tasneem_Shop.Web.Controllers
             { 
                 _context.Categories.Update(category);
                 _context.SaveChanges();
+
+                TempData["message"] = "Data Has Updated succesfully";
                 return RedirectToAction("Index");
             
             }
@@ -80,7 +84,7 @@ namespace Tasneem_Shop.Web.Controllers
             }
             _context.Categories.Remove(categoryIndb);
             _context.SaveChanges();
-
+            TempData["message"] = "Data Has Delete succesfully";
             return RedirectToAction("Index");
 
         }
