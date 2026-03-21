@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tasneem_Shop.DataAccess.Context;
+using Tasneem_Shop.DataAccess.Implementation;
+using Tasneem_Shop.Entities.Repositories;
 
 namespace Tasneem_Shop.Web
 {
@@ -16,6 +18,8 @@ namespace Tasneem_Shop.Web
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 

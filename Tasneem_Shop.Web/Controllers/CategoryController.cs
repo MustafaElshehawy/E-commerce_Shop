@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.Entities.Models;
+using Tasneem_Shop.Entities.Repositories;
 
 namespace Tasneem_Shop.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public CategoryController(ApplicationDbContext context)
+        private IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            var categories =_context.Categories.ToList();
+            var categories = _unitOfWork.Category.GetAll();
             return View(categories);
         }
 
@@ -28,8 +29,8 @@ namespace Tasneem_Shop.Web.Controllers
         { 
             if(ModelState.IsValid)
             {
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork.Complate();
                 TempData["message"] = "Data Has created succesfully";
 
                 return RedirectToAction("Index");
@@ -44,7 +45,7 @@ namespace Tasneem_Shop.Web.Controllers
             {
                 return NotFound();
             }
-            var categoryIndb = _context.Categories.Find(id);
+            var categoryIndb = _unitOfWork.Category.GetFirstOrDefault(x=>x.Id ==id);
             if (categoryIndb == null)
             {
                 return NotFound();
@@ -58,9 +59,9 @@ namespace Tasneem_Shop.Web.Controllers
         public IActionResult Edit(Category category)
         {
             if (ModelState.IsValid)
-            { 
-                _context.Categories.Update(category);
-                _context.SaveChanges();
+            {
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Complate();
 
                 TempData["message"] = "Data Has Updated succesfully";
                 return RedirectToAction("Index");
@@ -77,13 +78,13 @@ namespace Tasneem_Shop.Web.Controllers
             {
                 return NotFound();
             } 
-            var categoryIndb = _context.Categories.Find(id);
+            var categoryIndb = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
             if (categoryIndb == null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(categoryIndb);
-            _context.SaveChanges();
+            _unitOfWork.Category.Remove(categoryIndb);
+            _unitOfWork.Complate();
             TempData["message"] = "Data Has Delete succesfully";
             return RedirectToAction("Index");
 
