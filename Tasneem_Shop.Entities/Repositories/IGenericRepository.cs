@@ -7,7 +7,7 @@ namespace Tasneem_Shop.Entities.Repositories
 {
     public interface IGenericRepository<T> where T: class
     {
-        //_Context.Categories.ToList()
+        
         IEnumerable <T> GetAll(Expression <Func<T,bool>>? predicate= null,string? Includeword= null);
 
         T GetFirstOrDefault(Expression<Func<T,bool>>? perdicate = null, string? Includeword = null);
