@@ -3,8 +3,9 @@ using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
 
-namespace Tasneem_Shop.Web.Controllers
+namespace Tasneem_Shop.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private IUnitOfWork _unitOfWork;
