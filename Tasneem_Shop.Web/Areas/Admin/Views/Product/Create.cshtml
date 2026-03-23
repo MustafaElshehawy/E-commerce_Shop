@@ -1,0 +1,49 @@
+﻿@model Product
+@{
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "Add Product";
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<div class="container mt-3">
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Enter Product name..." />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control" placeholder="Enter description..." />
+            <span asp-validation-for="Description" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Img" class="form-label"></label>
+            <input asp-for="Img" class="form-control" placeholder="Enter Img..." />
+            <span asp-validation-for="Img" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" placeholder="Enter Price..." />
+            <span asp-validation-for="Price" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Category</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.categorys" class="form-select">
+                <option disabled selected>-- Select Category --</option>
+                    </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" asp-controller="Product" class="btn btn-warning">Back</a>
+        </div>
+    </form>
+</div>

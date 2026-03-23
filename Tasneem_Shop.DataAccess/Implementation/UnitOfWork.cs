@@ -10,11 +10,13 @@ namespace Tasneem_Shop.DataAccess.Implementation
     {
         private readonly ApplicationDbContext _context;
         public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; }
 
         public UnitOfWork(ApplicationDbContext Context)
         {
             _context = Context;
             Category = new CategoryRepository(Context);
+            Product =new ProductRepository(Context);
         }
         
 

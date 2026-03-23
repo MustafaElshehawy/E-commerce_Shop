@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tasneem_Shop.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using Tasneem_Shop.DataAccess.Context;
 namespace Tasneem_Shop.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260322104857_AddProductTable")]
+    partial class AddProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace Tasneem_Shop.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Tasneem_Shop.Entities.Models.Product", b =>
@@ -76,7 +79,7 @@ namespace Tasneem_Shop.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Tasneem_Shop.Entities.Models.Product", b =>

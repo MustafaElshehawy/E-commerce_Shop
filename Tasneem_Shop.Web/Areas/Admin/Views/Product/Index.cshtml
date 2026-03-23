@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "All Product";
+}
+<link rel="stylesheet" href="~/css/category.css" />
+
+ 
+<a asp-action="Create" asp-controller="Product" class="btn btn-outline-primary">create Product</a>
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Img</th>
+            <th>Price</th>
+            <th>CategoryId</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Img</td>
+                <td>@item.Price</td>
+                <td>@item.CategoryId</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
