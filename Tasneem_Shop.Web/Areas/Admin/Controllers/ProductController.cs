@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tasneem_Shop.Entities.Repositories;
-using Tasneem_Shop.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing.Constraints;
+using System.Configuration;
+using Tasneem_Shop.Entities.Models;
+using Tasneem_Shop.Entities.Repositories;
+using Tasneem_Shop.Entities.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Tasneem_Shop.Web.Areas.Admin.Controllers
@@ -9,10 +13,13 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
-        private IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork , IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -23,24 +30,52 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.categorys =new SelectList(_unitOfWork.Category.GetAll(),"Id","Name");
-            return View();
+            ProductVM productVM = new ProductVM()
+            {
+                Product = new Product(),
+                CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem { 
+                    
+                    Text = x.Name,
+                    Value =x.Id.ToString(),
+                
+                })
+                
+            };
+            return View(productVM);
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVM ,IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                string RootPath = _webHostEnvironment.WebRootPath;//وصلت لفولدر wwwroot
+                if (file != null)
+                {
+                    string filename = Guid.NewGuid().ToString();
+                    var upload = Path.Combine(RootPath, @"Images\Products");
+                    var ext =Path.GetExtension(file.FileName);
+
+                    using (var filestream = new FileStream(Path.Combine(upload, filename + ext), FileMode.Create))
+                    {
+                        file.CopyTo(filestream);
+                    }
+                    productVM.Product.Img = @"Images\Products\" + filename + ext;
+                }
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Complate();
                 TempData["message"] = "Data Has created succesfully";
 
                 return RedirectToAction("Index");
             }
-            ViewBag.categorys = new SelectList(_unitOfWork.Category.GetAll(), "Id", "Name");
-            return View(product);
+            productVM.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            });
+
+            return View(productVM);
         }
 
 
@@ -51,23 +86,47 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var ProductInDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
-            if (ProductInDb == null)
+            ProductVM productVM = new ProductVM()
+            {
+                Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id),
+                CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+                {
+
+                    Text = x.Name,
+                    Value = x.Id.ToString(),
+
+                })
+
+            };
+            if (productVM.Product == null)
             {
                 return NotFound();
             }
-            ViewBag.categorys = new SelectList(_unitOfWork.Category.GetAll(), "Id", "Name");
 
-            return View(ProductInDb);
+            return View(productVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductVM productVM,IFormFile file)
         {
+            
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.update(product);
+                string RootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var upload = Path.Combine(RootPath, @"Images/Products");
+                    var ext = Path.GetExtension(file.FileName);
+
+                    using (var filestream = new FileStream(Path.Combine(upload,fileName+ext),FileMode.Create))
+                    { 
+                        file.CopyTo(filestream);
+                    }
+                    productVM.Product.Img = @"Images\Products\" + fileName + ext;
+                }           
+                _unitOfWork.Product.update(productVM.Product);
                 _unitOfWork.Complate();
 
                 TempData["message"] = "Data Has Updated succesfully";

@@ -1,46 +1,62 @@
-﻿@model Product
+﻿@model ProductVM
 @{
     ViewBag.PageTitle = "Product Management";
     ViewBag.CardTitle = "Add Product";
 }
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            // AdminLTE  Custom File
+            if (typeof bsCustomFileInput !== 'undefined') {
+                bsCustomFileInput.init();
+            } else {
+              
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                });
+            }
+        });
+    </script>
 }
 <div class="container mt-3">
-    <form asp-action="Create" method="post">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" placeholder="Enter Product name..." />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            <label asp-for="Product.Name" class="form-label"></label>
+            <input asp-for="Product.Name" class="form-control" placeholder="Enter Product name..." />
+            <span asp-validation-for="Product.Name" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Description" class="form-label"></label>
-            <input asp-for="Description" class="form-control" placeholder="Enter description..." />
-            <span asp-validation-for="Description" class="text-danger"></span>
+            <label asp-for="Product.Description" class="form-label"></label>
+            <textarea asp-for="Product.Description" class="form-control" placeholder="Enter description..." ></textarea>
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
-            <label asp-for="Img" class="form-label"></label>
-            <input asp-for="Img" class="form-control" placeholder="Enter Img..." />
-            <span asp-validation-for="Img" class="text-danger"></span>
+            <label asp-for="Product.Img" class="form-label"></label>
+            <div class="custom-file">
+                <input type="file" name="file"  id="imgfile" class="custom-file-input">
+                <label class="custom-file-label" for="imgfile">Choose file</label>
+            </div>
+            <span asp-validation-for="Product.Img" class="text-danger"></span>
+        </div>  
+        <div class="mb-3">
+            <label asp-for="Product.Price" class="form-label"></label>
+            <input asp-for="Product.Price" class="form-control" placeholder="Enter Price..." />
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
-            <label asp-for="Price" class="form-label"></label>
-            <input asp-for="Price" class="form-control" placeholder="Enter Price..." />
-            <span asp-validation-for="Price" class="text-danger"></span>
-
-        </div>
-        <div class="mb-3">
-            <label asp-for="CategoryId" class="form-label">Category</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.categorys" class="form-select">
+            <label asp-for="Product.CategoryId" class="form-label fw-bold">Category</label>
+            <select asp-for="Product.CategoryId" class="custom-select" asp-items="Model.CategoryList">
                 <option disabled selected>-- Select Category --</option>
-                    </select>
-            <span asp-validation-for="CategoryId" class="text-danger"></span>
-
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
         </div>
-
+        
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Create</button>
             <a asp-action="Index" asp-controller="Product" class="btn btn-warning">Back</a>
