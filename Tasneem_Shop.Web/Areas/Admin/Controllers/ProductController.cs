@@ -55,6 +55,10 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 {
                     string filename = Guid.NewGuid().ToString();
                     var upload = Path.Combine(RootPath, @"Images\Products");
+                    if (!Directory.Exists(upload))
+                    {
+                        Directory.CreateDirectory(upload);
+                    }
                     var ext =Path.GetExtension(file.FileName);
 
                     using (var filestream = new FileStream(Path.Combine(upload, filename + ext), FileMode.Create))
@@ -119,7 +123,10 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString();
                     var upload = Path.Combine(RootPath, @"Images/Products");
                     var ext = Path.GetExtension(file.FileName);
-
+                    if (!Directory.Exists(upload))
+                    {
+                        Directory.CreateDirectory(upload);
+                    }
                     using (var filestream = new FileStream(Path.Combine(upload,fileName+ext),FileMode.Create))
                     { 
                         file.CopyTo(filestream);
