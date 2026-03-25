@@ -23,6 +23,7 @@
 }
 <div class="container mt-3">
     <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Product.Id" />
         <div class="mb-3">
             <label asp-for="Product.Name" class="form-label"></label>
             <input asp-for="Product.Name" class="form-control" placeholder="Enter Product name..." />
@@ -37,6 +38,8 @@
         </div>
         <div class="mb-3">
             <label asp-for="Product.Img" class="form-label"></label>
+            <input type="hidden" asp-for="Product.Img" />
+            <img src="~/@Model.Product.Img" width="100" />
             <div class="custom-file">
                 <input type="file" name="file" id="imgfile" class="custom-file-input">
                 <label class="custom-file-label" for="imgfile">Choose file</label>

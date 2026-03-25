@@ -112,7 +112,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductVM productVM,IFormFile file)
+        public IActionResult Edit(ProductVM productVM,IFormFile? file)
         {
             
             if (ModelState.IsValid)
@@ -121,11 +121,19 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var upload = Path.Combine(RootPath, @"Images/Products");
+                    var upload = Path.Combine(RootPath, @"Images\Products");
                     var ext = Path.GetExtension(file.FileName);
                     if (!Directory.Exists(upload))
                     {
                         Directory.CreateDirectory(upload);
+                    }
+                    if (productVM.Product.Img != null)
+                    {
+                        var oldImage = Path.Combine(RootPath, productVM.Product.Img.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImage))
+                        {
+                            System.IO.File.Delete(oldImage);
+                        }
                     }
                     using (var filestream = new FileStream(Path.Combine(upload,fileName+ext),FileMode.Create))
                     { 
@@ -140,7 +148,12 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index");
 
             }
-            return View();
+            productVM.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            });
+            return View(productVM);
 
         }
 
@@ -157,6 +170,11 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 return NotFound();
             }
             _unitOfWork.Product.Remove(ProductInDb);
+            var oldImage = Path.Combine(_webHostEnvironment.WebRootPath, ProductInDb.Img.TrimStart('\\'));
+            if (System.IO.File.Exists(oldImage))
+            {
+                System.IO.File.Delete(oldImage);
+            }
             _unitOfWork.Complate();
             TempData["message"] = "Data Has Delete succesfully";
             return RedirectToAction("Index");

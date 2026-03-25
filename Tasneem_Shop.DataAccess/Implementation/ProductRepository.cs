@@ -22,6 +22,7 @@ namespace Tasneem_Shop.DataAccess.Implementation
             {
                 ProductInDb.Name = product.Name;
                 ProductInDb.Description = product.Description;
+                ProductInDb.Price = product.Price;
                 ProductInDb.Img = product.Img;
                 ProductInDb.CategoryId = product.CategoryId;
             }
