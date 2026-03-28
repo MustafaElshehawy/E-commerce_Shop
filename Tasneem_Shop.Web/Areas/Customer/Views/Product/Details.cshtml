@@ -37,9 +37,29 @@
                                 <li class="no-star"><i class="fa fa-star-o"></i></li> 
                             </ul>
                         </div>
-                        <div class="price-box pt-20">
-                            <span class="new-price new-price-2">@Model.Price</span>
+                        <div class="price-box pt-16 mb-0">
+                            @if (Model.IsHotDeal)
+                            {
+                                <span class="new-price new-price-2">EGP @Model.OfferPrice</span>
+                                <del class="old-price">EGP @Model.Price</del>
+                            }
+                            else
+                            {
+                                <span class="new-price new-price-2">EGP @Model.Price</span>
+                                
+                            }
                         </div>
+                        @if (Model.IsHotDeal)
+                        {
+                           
+                            <div class="countersection">
+                                  <div class="li-countdown"
+                                     data-countdown="@Model.EndTime.Value.ToString("yyyy/MM/dd HH:mm:ss")">
+                                  </div>
+                             </div>
+                                
+                        
+                        }
                         <div class="product-desc">
                             <p>
                                 <span>

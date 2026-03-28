@@ -21,7 +21,7 @@ namespace Tasneem_Shop.Web.Controllers
             {
                 
                 Categories=_unitOfWork.Category.GetAll(),
-                HotDealsProducts = _unitOfWork.Product.GetAll(),
+                HotDealsProducts = _unitOfWork.Product.GetAll(p=>p.IsHotDeal == true),
                 GiftBoxesProducts = _unitOfWork.Product.GetAll(p=>p.Category.Name == "Gift Boxes"),
                 PersonalizedProducts = _unitOfWork.Product.GetAll(p => p.Category.Name == "Personalized"),
 

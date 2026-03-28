@@ -27,6 +27,16 @@ namespace Tasneem_Shop.DataAccess.Implementation
                 ProductInDb.CategoryId = product.CategoryId;
             }
         }
-        
+        public void UpdateOffer(Product product)
+        {
+            var ProductInDb = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            if (ProductInDb != null)
+            {
+                ProductInDb.IsHotDeal = product.IsHotDeal;
+                ProductInDb.OfferPrice = product.OfferPrice;
+                ProductInDb.EndTime = product.EndTime;
+            }
+        }
+
     }
 }

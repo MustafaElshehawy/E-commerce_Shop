@@ -11,7 +11,7 @@
 }
 
     .custom-table thead tr {
-        background-color: #AA2C48;
+        background-color: #056880;
         color: #ffffff;
         text-align: left;
         font-weight: bold;
@@ -31,11 +31,11 @@
         }
 
         .custom-table tbody tr:last-of-type {
-            border-bottom: 2px solid #AA2C48;
+            border-bottom: 2px solid #056880;
         }
 
         .custom-table tbody tr:hover {
-            background-color: #E6CDD2;
+            background-color: #B9D2D8;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -45,5 +45,5 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 300px; /* حدد العرض المناسب لعمود الوصف */
+    max-width: 100px; /* حدد العرض المناسب لعمود الوصف */
 }

@@ -29,5 +29,12 @@ namespace Tasneem_Shop.Entities.Models
         [ValidateNever]
         public Category? Category { get; set; }
 
+        [DisplayName("Hot Deal")]
+        public bool IsHotDeal { get; set; } = false;
+        [DisplayName("Offer Price")]
+        public decimal? OfferPrice { get; set; }
+        [Display(Name = "Offer End Date")]
+        public DateTime? EndTime { get; set; }
+
     }
 }

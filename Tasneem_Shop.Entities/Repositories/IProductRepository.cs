@@ -8,5 +8,6 @@ namespace Tasneem_Shop.Entities.Repositories
     public interface IProductRepository:IGenericRepository<Product>
     {
         void update(Product product);
+        void UpdateOffer(Product product);
     }
 }

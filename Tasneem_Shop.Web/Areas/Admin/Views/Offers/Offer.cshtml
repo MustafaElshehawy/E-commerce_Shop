@@ -1,0 +1,74 @@
+﻿@model Product
+@{
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "Product Hot Deal ";
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            // AdminLTE  Custom File
+            if (typeof bsCustomFileInput !== 'undefined') {
+                bsCustomFileInput.init();
+            } else {
+              
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                });
+            }
+        });
+    </script>
+}
+<div class="container mt-1">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Offer" method="post">
+                <input type="hidden" asp-for="@Model.Id" />
+
+                <div class="row mb-4 align-items-center">
+                    <div class="col-auto">
+                        <img src="~/@Model.Img" width="80" class="rounded img-thumbnail" />
+                    </div>
+                    <div class="col">
+                        <h5 class="mb-0">@Model.Name</h5>
+                        <p class="text-muted mb-0">Original Price: <strong>EGP @Model.Price.ToString()</strong></p>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <div class="form-check form-switch custom-control custom-switch">
+                            <input type="checkbox" asp-for="@Model.IsHotDeal" class="custom-control-input" id="hotDealSwitch">
+                            <label class="custom-control-label fw-bold" for="hotDealSwitch">Enable Hot Deal / Offer Status</label>
+                            <small class="d-block text-muted">Toggle this to show or hide the offer on the website.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="@Model.OfferPrice" class="form-label fw-bold">Discounted Price (Offer Price)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">EGP</span>
+                            <input asp-for="@Model.OfferPrice" class="form-control" placeholder="0.00" type="number" step="any" />
+                        </div>
+                        <span asp-validation-for="@Model.OfferPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="@Model.EndTime" class="form-label fw-bold">Offer Expiry Date</label>
+                        <input asp-for="@Model.EndTime" class="form-control" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" onclick="this.showPicker()" onkeydown="return false" />
+                        <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 border-top pt-3">
+                    <button type="submit" class="btn btn-success px-4">Save Offer Status</button>
+                    <a asp-action="Index" asp-controller="Product" class="btn btn-outline-danger px-4">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
