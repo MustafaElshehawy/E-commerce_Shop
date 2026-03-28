@@ -39,3 +39,11 @@
             cursor: pointer;
             transition: 0.3s;
         }
+.text-truncate-custom {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* عدد الأسطر اللي عاوزه يظهر */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; /* حدد العرض المناسب لعمود الوصف */
+}

@@ -39,7 +39,11 @@ namespace Tasneem_Shop.Web
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{Area=Admin}/{controller=Home}/{action=Index}/{id?}")
+                pattern: "{Area=Admin}/{controller=Category}/{action=Index}/{id?}")  
+                .WithStaticAssets();
+            app.MapControllerRoute(
+                name: "customer",
+                pattern: "{Area=Customer}/{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

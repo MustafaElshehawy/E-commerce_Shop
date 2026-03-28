@@ -1,0 +1,333 @@
+﻿@model HomeVM
+
+@{
+    ViewData["Title"] = "Home Page";
+    int categoryItems = 0;
+}
+
+<!-- Header Area End Here -->
+<!-- Begin Slider With Category Menu Area -->
+<div class="slider-with-banner">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Category Menu Area -->
+            <div class="col-lg-3">
+                <!--Category Menu Start-->
+                <div class="category-menu category-menu-2">
+                    <div class="category-heading">
+                        <h2 class="categories-toggle"><span>categories</span></h2>
+                    </div>
+                    <div id="cate-toggle" class="category-menu-list">
+                        <ul>
+                            @foreach (var category in Model.Categories)
+                            {
+                                categoryItems++;
+                                <li class="@(categoryItems>6? "rx-child":"")">
+                             <a href="">@category.Name</a> 
+                             </li>
+                            }
+                            <li class="rx-parent">
+                                <a class="rx-default">More Categories</a>
+                                <a class="rx-show">Less Categories</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Category Menu End-->
+            </div>
+            <!-- Category Menu Area End Here -->
+            <!-- Begin Slider Area -->
+            <div class="col-lg-9 col-md-8">
+                <div class="slider-area slider-area-3 pt-sm-30 pt-xs-30 pb-xs-30">
+                    <div class="slider-active owl-carousel">
+                        <!-- Begin Single Slide Area -->
+                        <div class="single-slide align-center-left animation-style-01 " style="background-image: url('/Images/Slider/1.png') !important;height:340px">
+                            <div class="slider-progress"></div>
+                            <div class="slider-content">
+                                <h5>Sale Offer <span>-20% Off</span> This Week</h5>
+                                <h2>Positive Potato | Handmade</h2>
+                                <h3>Starting at <span>EGP 350.00</span></h3>
+                                <div class="default-btn slide-btn">
+                                    <a class="links" href="">Shopping Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-slide align-center-left animation-style-01 " style="background-image: url('/Images/Slider/2.png') !important;height:340px">
+                            <div class="slider-progress"></div>
+                            <div class="slider-content">
+                                <h5>Sale Offer <span>-45% Off</span> Today</h5>
+                                <h2>Premium Rose & Candle | Boxes</h2>
+                                <h3>Starting at <span>$250.00</span></h3>
+                                <div class="default-btn slide-btn">
+                                    <a class="links" href="">Shopping Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Slide Area End Here -->                       
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<!-- Li's Static Banner Area End Here -->
+<!-- Begin Li's Special Product Area -->
+<section class="product-area li-laptop-product Special-product pt-60 pb-45">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Section Area -->
+            <div class="col-lg-12">
+                <div class="li-section-title">
+                    <h2>
+                        <span>Hot Deals</span>
+                    </h2>
+                    <ul class="li-sub-category-list">
+                        <li class="active"><a href="shop-left-sidebar.html">Show All</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="special-product-active owl-carousel">
+                        <div class="col-lg-12">
+                            <!-- single-product-wrap start -->
+                            <div class="single-product-wrap">
+                                <div class="product-image">
+                                    <a href="single-product.html">
+                                        <img src="~/Customer/images/product/large-size/1.jpg" alt="Li's Product Image">
+                                    </a>
+                                    <span class="sticker">New</span>
+                                </div>
+                                <div class="product_desc">
+                                    <div class="product_desc_info">
+                                        <div class="product-review">
+                                            <h5 class="manufacturer">
+                                                <a href="shop-left-sidebar.html">Graphic Corner</a>
+                                            </h5>
+                                            <div class="rating-box">
+                                                <ul class="rating">
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h4><a class="product_name" href="single-product.html">Accusantium dolorem1</a></h4>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.80</span>
+                                        </div>
+                                        <div class="countersection">
+                                            <div class="li-countdown"
+                                                 data-countdown="2026/3/31">
+                                            </div>
+                                        </div>
+                                        @* @if (item.OfferExpiryDate.HasValue)
+                                        {
+                                            <div class="countersection">
+                                                <div class="li-countdown"
+                                                     data-countdown="@item.OfferExpiryDate.Value.ToString("yyyy/MM/dd HH:mm:ss")">
+                                                </div>
+                                            </div>
+                                        } *@
+                                        
+                                    </div>
+                                    <div class="add-actions">
+                                        <ul class="add-actions-link">
+                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single-product-wrap end -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Section Area End Here -->
+        </div>
+    </div>
+</section>
+<!-- Li's Special Product Area End Here -->
+
+<!-- Begin Li's Laptop Product Area -->
+<section class="product-area li-laptop-product pt-60 pb-45">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Section Area -->
+            <div class="col-lg-12">
+                <div class="li-section-title">
+                    <h2>
+                        <span>Gift Boxes</span>
+                    </h2>
+                    <ul class="li-sub-category-list">
+                        <li class="active"><a asp-controller="Product" asp-action="GetByCategory" asp-route-category="Gift Boxes">Show All</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="product-active owl-carousel">
+                        @foreach(var product in Model.GiftBoxesProducts)
+                            {
+                        <div class="col-lg-12">
+                            
+                                <!-- single-product-wrap start -->
+                                <div class="single-product-wrap">
+                                    <div class="product-image">
+                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" >
+                                            <img src="~/@product.Img" style="border-radius:10px" alt="Li's GiftBoxes Image">
+                                        </a>
+                                        <span class="sticker">New</span>
+                                    </div>
+                                    <div class="product_desc">
+                                        <div class="product_desc_info">
+                                            <div class="product-review">
+                                                <h5 class="manufacturer">
+                                                    <a href="shop-left-sidebar.html">@product.Category.Name</a>
+                                                </h5>
+                                                <div class="rating-box">
+                                                    <ul class="rating">
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <h4><a class="product_name" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h4>
+                                            <div class="price-box">
+                                                <span class="new-price">EGP @product.Price</span>
+                                            </div>
+                                        </div>
+                                        <div class="add-actions">
+                                            <ul class="add-actions-link">
+                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a class="quick-view"  asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- single-product-wrap end -->
+                            
+                        </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Section Area End Here -->
+        </div>
+    </div>
+</section>
+<!-- Li's Laptop Product Area End Here -->
+<!-- Begin Li's TV & Audio Product Area -->
+<section class="product-area li-laptop-product li-tv-audio-product pb-45">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Section Area -->
+            <div class="col-lg-12">
+                <div class="li-section-title">
+                    <h2>
+                        <span>Personalized</span>
+                    </h2>
+                    <ul class="li-sub-category-list">
+                        <li class="active"><a asp-controller="Product" asp-action="GetByCategory" asp-route-category="Personalized">Show All</a></li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="product-active owl-carousel">
+                        @foreach(var personal in Model.PersonalizedProducts)
+                        {
+                            <div class="col-lg-12">
+                                <!-- single-product-wrap start -->
+                                <div class="single-product-wrap">
+                                    <div class="product-image">
+                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@personal.Id">
+                                            <img src="~/@personal.Img" style="border-radius:10px"  alt="Li's Personal Gift Image">
+                                        </a>
+                                        <span class="sticker">New</span>
+                                    </div>
+                                    <div class="product_desc">
+                                        <div class="product_desc_info">
+                                            <div class="product-review">
+                                                <h5 class="manufacturer">
+                                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@personal.Id">@personal.Category.Name</a>
+                                                </h5>
+                                                <div class="rating-box">
+                                                    <ul class="rating">
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <h4><a class="product_name" href="single-product.html">@personal.Name</a></h4>
+                                            <div class="price-box">
+                                                <span class="new-price">EGP @personal.Price</span>
+                                            </div>
+                                        </div>
+                                        <div class="add-actions">
+                                            <ul class="add-actions-link">
+                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a class="quick-view" asp-controller="Product" asp-action="Details" asp-route-id="@personal.Id"><i class="fa fa-eye"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- single-product-wrap end -->
+                            </div>
+                        }
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Section Area End Here -->
+        </div>
+    </div>
+</section>
+<!-- Li's TV & Audio Product Area End Here -->
+<!-- Begin Li's Static Banner Area -->
+<div class="li-static-banner li-static-banner-3 text-center">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Single Banner Area -->
+            <div class="col-lg-6 col-md-6">
+                <div class="single-banner pb-xs-30">
+                    <a href="#">
+                        <img src="~/Customer/images/sub-banner/1.png" alt="Li's Static Banner">
+                    </a>
+                </div>
+            </div>
+            <!-- Single Banner Area End Here -->
+            <!-- Begin Single Banner Area -->
+            <div class="col-lg-6 col-md-6">
+                <div class="single-banner">
+                    <a href="#">
+                        <img src="~/Customer/images/sub-banner/2.png" alt="Li's Static Banner">
+                    </a>
+                </div>
+            </div>
+            <!-- Single Banner Area End Here -->
+        </div>
+    </div>
+</div>
+<!-- Li's Static Banner Area End Here -->
+<!-- Begin Li's Trending Product Area -->
+<section class="product-area li-trending-product pt-60 pb-45 pt-xs-50">
+    <div class="container">
+        <div class="row">
+            
+            
+        </div>
+    </div>
+</section>

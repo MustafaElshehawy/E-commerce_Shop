@@ -23,9 +23,22 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Description</td>
-                <td>@item.Img</td>
+                
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Name
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Description
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Img
+                    </div>
+                </td>
                 <td>@item.Price</td>
                 <td>@item.CategoryId</td>
                 <td>
