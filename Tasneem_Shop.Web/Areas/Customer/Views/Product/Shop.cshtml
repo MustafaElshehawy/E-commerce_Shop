@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li class="add-cart active"><a href="javascript:void(0);" onclick="addToCart(@product.Id)">Add to cart</a></li>
                                                 <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
                                                 <li><a class="quick-view" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             </ul>

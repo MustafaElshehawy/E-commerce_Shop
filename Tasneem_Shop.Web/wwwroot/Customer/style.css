@@ -1533,13 +1533,18 @@ textarea:focus {
 }
 .hm-minicart-trigger {
 		border-radius: 2px;
+		border-color: #3498db;
 		background: #e80f0f;
-		color: #fff;
+		color: #ffffff;
 		height: 45px;
 		cursor: pointer;
 		display: block;
 		position: relative;
 		padding: 0 15px 0 55px;
+}
+.hm-minicart-trigger:hover {
+	background-color: #fed700;
+		
 }
 .item-icon::before {
 		content: "\f291";
@@ -1578,6 +1583,21 @@ textarea:focus {
 		background: #fed700;
 		text-align: center;
 		border-radius: 100%;
+}
+.cart-item-count2 {
+	position: absolute;
+	top: -25px;
+	left: -60px;
+	display: block;
+	overflow: hidden;
+	min-width: 26px;
+	line-height: 26px;
+	font-size: 12px;
+	font-weight: 400;
+	color: #242424;
+	background: #fed700;
+	text-align: center;
+	border-radius: 100%;
 }
 .wishlist-item-count {
 		top: -10px;
@@ -1795,7 +1815,6 @@ textarea:focus {
 .ht-menu > li .ht-currency-trigger span::after,
 .ht-menu > li .ht-language-trigger span::after,
 .hm-minicart-trigger .item-text::after {
-	content: "\f106";
 	float: right;
 	font-weight: 400;
 	font-size: 18px;
@@ -1813,7 +1832,6 @@ textarea:focus {
 .ht-menu > li .ht-currency-trigger span::after, 
 .ht-menu > li .ht-language-trigger span::after, 
 .hm-minicart-trigger .item-text::after {
-	content: "\f107";
 	font-size: 14px;
 	color: #a4a4a4;
 	margin-left: 5px;

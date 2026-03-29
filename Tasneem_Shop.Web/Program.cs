@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.DataAccess.Implementation;
 using Tasneem_Shop.Entities.Repositories;
+using Tasneem_Shop.Entities.Servies;
 
 namespace Tasneem_Shop.Web
 {
@@ -20,6 +21,10 @@ namespace Tasneem_Shop.Web
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<ICartService, CartService>();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
 

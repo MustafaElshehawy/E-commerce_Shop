@@ -50,7 +50,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
  /*  02. Header Dropdown
  /*----------------------------------------*/
  	// Li's Dropdown Menu
- 	$('.ht-setting-trigger, .ht-currency-trigger, .ht-language-trigger, .hm-minicart-trigger, .cw-sub-menu').on('click', function (e) {
+ 	$('.ht-setting-trigger, .ht-currency-trigger, .ht-language-trigger, .cw-sub-menu').on('click', function (e) {
  		e.preventDefault();
  		$(this).toggleClass('is-active');
  		$(this).siblings('.ht-setting, .ht-currency, .ht-language, .minicart, .cw-sub-menu li').slideToggle();
@@ -546,3 +546,27 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------*/
+/* 26. MiniShoppinCart Section
+/*----------------------------------------*/
+function addToCart(pId, btn) {
+	var qty = $(btn).find('input[name="quantity"]').val();
+	$.ajax({
+		url: '/Customer/Cart/AddToCart',
+		type: 'POST',
+		data: { productId: pId, quantity: qty }, 
+		success: function (response) {
+			if (response.success) {
+				$('.cart-item-count').text(response.cartCount);
+
+
+			}
+		},
+		error: function () {
+			alert("حدث خطأ أثناء الإضافة.");
+		}
+	});
+}
+

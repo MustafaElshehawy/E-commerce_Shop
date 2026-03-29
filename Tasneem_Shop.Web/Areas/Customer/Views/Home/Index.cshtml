@@ -57,7 +57,7 @@
                             <div class="slider-content">
                                 <h5>Sale Offer <span>-45% Off</span> Today</h5>
                                 <h2>Premium Rose & Candle | Boxes</h2>
-                                <h3>Starting at <span>$250.00</span></h3>
+                                <h3>Starting at <span>EGP 250.00</span></h3>
                                 <div class="default-btn slide-btn">
                                     <a class="links" href="">Shopping Now</a>
                                 </div>
@@ -133,9 +133,9 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                    <li class="add-cart active"><a href="javascript:void(0);" onclick="addToCart(@prod.Id)">Add to cart</a></li>
+                                                    <li><a class="links-details" href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                    <li><a asp-controller="Product" asp-action="Details" asp-route-id="@prod.Id"  title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li class="add-cart active"><a href="javascript:void(0);" onclick="addToCart(@product.Id)">Add to cart</a></li>
                                                 <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
                                                 <li><a class="quick-view"  asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             </ul>
@@ -305,7 +305,7 @@
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                    <li class="add-cart active"><a href="javascript:void(0);" onclick="addToCart(@personal.Id)">Add to cart</a></li>
                                                 <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
                                                 <li><a class="quick-view" asp-controller="Product" asp-action="Details" asp-route-id="@personal.Id"><i class="fa fa-eye"></i></a></li>
                                             </ul>
