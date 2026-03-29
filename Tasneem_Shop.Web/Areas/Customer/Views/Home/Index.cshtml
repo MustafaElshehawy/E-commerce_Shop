@@ -85,7 +85,7 @@
                         <span>Hot Deals</span>
                     </h2>
                     <ul class="li-sub-category-list">
-                        <li class="active"><a href="shop-left-sidebar.html">Show All</a></li>
+                            <li class="active"><a asp-controller="Product" asp-action="GetAllHotDeals">Show All</a></li>
                         
                     </ul>
                 </div>
@@ -252,7 +252,7 @@
                         <span>Personalized</span>
                     </h2>
                     <ul class="li-sub-category-list">
-                        <li class="active"><a asp-controller="Product" asp-action="GetByCategory" asp-route-category="Personalized">Show All</a></li>
+                        <li class="active"><a asp-controller="Product" asp-action="getAllHotDeals">Show All</a></li>
                     </ul>
                 </div>
                 <div class="row">
@@ -288,9 +288,20 @@
                                                 </div>
                                             </div>
                                             <h4><a class="product_name" href="single-product.html">@personal.Name</a></h4>
-                                            <div class="price-box">
-                                                <span class="new-price">EGP @personal.Price</span>
-                                            </div>
+                                            @if (personal.IsHotDeal)
+                                            {
+                                                <div class="price-box">
+                                                    <span class="new-price new-price-2">EGP @personal.OfferPrice</span>
+                                                    <span class="old-price">EGP @personal.Price</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="price-box">
+                                                    <span class="new-price ">EGP @personal.Price</span>
+                                                </div>
+                                               
+                                            }
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">

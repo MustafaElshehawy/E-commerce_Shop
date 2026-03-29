@@ -200,10 +200,9 @@
                             <div class="hb-menu hb-menu-2">
                                 <nav>
                                     <ul>
-                                        <li><a href="">Home</a></li>
-                                        <li><a href="">SHOP</a></li>
-                                        <li><a href="">NEW ARRIVALS</a></li>
-                                        <li><a href="">SPECIAL OFFERS</a></li>
+                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li><a asp-controller="Product" asp-action="Shop">SHOP</a></li>
+                                    <li><a asp-controller="Product" asp-action="GetAllHotDeals">Hot Deals</a></li>
                                         <li><a href="">MY ORDERS</a></li>
                                         <!-- Begin Header Bottom Menu Information Area -->
                                         <li class="hb-info f-right p-0 d-sm-none d-lg-block">

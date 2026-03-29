@@ -12,6 +12,13 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
         {
             _unitOfWork = unitOfwork;
         }
+
+        public IActionResult Shop()
+        {
+            var product = _unitOfWork.Product.GetAll(Includeword: "Category");
+            ViewBag.CurrentCategory = "Shop";
+            return View(product);
+        }
         public IActionResult Details(int id)
         {
             var productDetails = _unitOfWork.Product.GetFirstOrDefault(prod => prod.Id == id);
@@ -26,6 +33,14 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
             ViewBag.CurrentCategory = category;
 
             return View(getProductByName);
+        }
+        public IActionResult GetAllHotDeals()
+        {
+
+            var getAllHotDeals = _unitOfWork.Product.GetAll(p => p.IsHotDeal, Includeword: "Category");
+            ViewBag.CurrentCategory = "HotDeals";
+
+            return View(getAllHotDeals);
         }
     }
 }
