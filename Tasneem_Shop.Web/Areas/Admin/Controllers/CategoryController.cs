@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
+using Utilities;
 
 namespace Tasneem_Shop.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.AdminRole)]
     public class CategoryController : Controller
     {
         private IUnitOfWork _unitOfWork;

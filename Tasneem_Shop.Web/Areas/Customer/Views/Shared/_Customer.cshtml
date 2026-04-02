@@ -58,11 +58,7 @@
                     <div class="row">
                         <!-- Begin Header Top Left Area -->
                         <div class="col-lg-3 col-md-4">
-                            <div class="header-top-left">
-                                <ul class="phone-wrap">
-                                    <li><span>Telephone Enquiry:</span><a href="#">(+123) 123 321 345</a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                         <!-- Header Top Left Area End Here -->
                         <!-- Begin Header Top Right Area -->
@@ -70,24 +66,8 @@
                             <div class="header-top-right">
                                 <ul class="ht-menu">
                                     <!-- Begin Setting Area -->
-                                    <li>
-                                        <div class="ht-setting-trigger"><span>Setting</span></div>
-                                        <div class="setting ht-setting">
-                                            <ul class="ht-setting-list">
-                                                <li><a href="login-register.html">My Account</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="login-register.html">Sign In</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <!-- Setting Area End Here -->
-                                    <!-- Begin Setting Area -->
-                                    <li>
-                                        <div class="ht-setting-trigger"><span>Setting</span></div>
-
-                                        </div>
-                                    </li>
-                                    <!-- Setting Area End Here -->
+                                    <partial name="_LoginPartial"/>
+                                   
                       
                                 </ul>
                             </div>
@@ -104,7 +84,7 @@
                         <!-- Begin Header Logo Area -->
                         <div class="col-lg-3">
                             <div class="logo pb-sm-30 pb-xs-30">
-                                <a href="index.html">
+                                <a href="">
                                     <img src="~/Customer/images/menu/logo/1.jpg" alt="">
                                 </a>
                             </div>
@@ -135,7 +115,7 @@
                                     <!-- Header Middle Wishlist Area End Here -->
                                     <!-- Begin Header Mini Cart Area -->
                                     <li class="hm-minicart">
-                                    @await Html.PartialAsync("_MinicartPartial")
+                                        @await Html.PartialAsync("~/Areas/Customer/Views/Shared/_MinicartPartial.cshtml")
                                     </li>
                                     <!-- Header Mini Cart Area End Here -->
                                 </ul>

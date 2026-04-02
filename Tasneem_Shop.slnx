@@ -2,4 +2,5 @@
   <Project Path="Tasneem_Shop.DataAccess/Tasneem_Shop.DataAccess.csproj" />
   <Project Path="Tasneem_Shop.Entities/Tasneem_Shop.Entities.csproj" />
   <Project Path="Tasneem_Shop.Web/Tasneem_Shop.Web.csproj" />
+  <Project Path="Utilities/Utilities.csproj" Id="9f8d4a8c-a8d5-430f-8360-e862a1cf68ef" />
 </Solution>

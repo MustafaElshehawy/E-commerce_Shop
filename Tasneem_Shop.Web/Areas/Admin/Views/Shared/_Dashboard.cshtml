@@ -165,12 +165,34 @@
             </a>
             
           </li>
-
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>
+                                    Users
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All User</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="Create" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add User</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                  <i class="nav-icon fas fa-th-large"></i>
               <p>
-                Category
+                Categories
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -193,7 +215,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon 	fas fa-dice-d6"></i>
                                 <p>
-                                    Product
+                                    Products
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>

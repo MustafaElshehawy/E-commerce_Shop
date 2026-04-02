@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing.Constraints;
 using System.Configuration;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
 using Tasneem_Shop.Entities.ViewModels;
+using Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Tasneem_Shop.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.AdminRole)]
     public class ProductController : Controller
     {
 

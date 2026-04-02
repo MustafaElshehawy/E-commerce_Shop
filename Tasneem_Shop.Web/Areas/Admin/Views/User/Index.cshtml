@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewBag.PageTitle = "User Management";
+    ViewBag.CardTitle = "All Users";
+}
+<link rel="stylesheet" href="~/css/category.css" />
+
+ 
+<a asp-action="Create" asp-controller="User" class="btn btn-outline-primary">create User</a>
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>   
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Name
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Email
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.PhoneNumber
+                    </div>
+                </td>
+                <td>
+                    @if (item.LockoutEnd == null ||item.LockoutEnd < DateTime.Now )
+                    {
+                        
+                        <a asp-action="LockUnlock" asp-controller="User" asp-route-id="@item.Id" class="btn btn-dark"><i class="nav-icon 	fas fa-lock"></i></a>  
+                    }else
+                    {
+                        <a asp-action="LockUnlock" asp-controller="User" asp-route-id="@item.Id" class="btn btn-success"><i class="nav-icon 	fas fa-lock-open"></i></a>
+                    
+                    }
+                    
+
+
+
+                    <a asp-action="Delete" asp-controller="User" asp-route-id="@item.Id" class="btn btn-danger"><i class="nav-icon 	fas fa-trash"></i></a>
+
+                    
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

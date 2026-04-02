@@ -8,6 +8,7 @@ namespace Tasneem_Shop.Entities.Repositories
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
+        IUserRepository User { get; }
 
         int Complate();
     }
