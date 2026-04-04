@@ -10,6 +10,8 @@ namespace Tasneem_Shop.Entities.Repositories
         IProductRepository Product { get; }
         IUserRepository User { get; }
 
+        IShoppingCartRepository ShoppingCart { get; }
+
         int Complate();
     }
 }

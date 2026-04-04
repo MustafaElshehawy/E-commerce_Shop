@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CartItemDetailsVM>
+﻿@model CartVM
 
 
 <!--Shopping Cart Area Strat-->
@@ -20,12 +20,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var prod in Model)
+                                @foreach(var prod in Model.CartItems)
                                 {
                                 <tr>
                                     <td class="li-product-remove"><a asp-controller="Cart" asp-action="RemoveItemFromCart" asp-route-id="@prod.ProductId"><i class="fa fa-times"></i></a></td>
-                                        <td class="li-product-thumbnail"><a href="#"><img src="~/@prod.ImageUrl" style="max-height:100px ;max-width:100px" alt="Li's Product Image"></a></td>
-                                        <td class="li-product-name"><a href="#">@prod.ProductName</a></td>
+                                        <td class="li-product-thumbnail"><img src="~/@prod.ImageUrl" style="max-height:100px ;max-width:100px" alt="Li's Product Image"></td>
+                                        <td class="li-product-name">@prod.ProductName</td>
                                     <td class="li-product-price"><span class="amount">EGP @prod.Price</span></td>
                                     <td class="li-product-price"><span class="amount"> @prod.Quantity</span>  </td>
                                         <td class="product-subtotal"><span class="amount">EGP @(@prod.Quantity * @prod.Price)</span></td>
@@ -34,26 +34,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="coupon-all">
-                                <div class="coupon">
-                                    <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                    <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                </div>
-                                <div class="coupon2">
-                                    <input class="button" name="update_cart" value="Update cart" type="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-5 ml-auto">
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Subtotal <span>$130.00</span></li>
-                                    <li>Total <span>$130.00</span></li>
+                                    <li>Total <span>@Model.TotalPrice</span></li>
                                 </ul>
                                 <a href="#">Proceed to checkout</a>
                             </div>

@@ -1,20 +1,4 @@
-﻿@using Newtonsoft.Json
-@{
-
-    var cartCookie = Context.Request.Cookies["Cart"];
-    int count = 0;
-
-
-    if (!string.IsNullOrEmpty(cartCookie))
-    {
-        
-        var cartList = JsonConvert.DeserializeObject<List<CartItemVM>>(cartCookie);
-        
-        
-        count = cartList?.Sum(x => x.Quantity) ?? 0; 
-    }
-}
-
+﻿
 
 <a asp-controller="Cart" asp-action="GetCartItems" style="color:white;">
 <div class="hm-minicart-trigger">
@@ -22,7 +6,7 @@
         <span class="item-icon"></span>
         <span class="item-text">
             Cart
-            <span class="cart-item-count">@count</span>
+            <span class="cart-item-count">@await Component.InvokeAsync("ShoppingCartCounter")</span>
         </span>
 </div>
 </a>

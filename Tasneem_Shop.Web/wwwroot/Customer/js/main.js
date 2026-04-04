@@ -552,21 +552,23 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 /* 26. MiniShoppinCart Section
 /*----------------------------------------*/
 function addToCart(pId, btn) {
-	var qty = $(btn).find('input[name="quantity"]').val();
+	var qty = $(btn).find('input[name="quantity"]').val() || 1; 
 	$.ajax({
 		url: '/Customer/Cart/AddToCart',
 		type: 'POST',
-		data: { productId: pId, quantity: qty }, 
+		data: { productId: pId, quantity: qty },
 		success: function (response) {
 			if (response.success) {
-				$('.cart-item-count').text(response.cartCount);
+				
+				$('#cart-badge-count').text(response.cartCount).fadeIn();
 
-
+				
+				$('.cart-item-count').text(response.cartCount);		
+				
 			}
 		},
 		error: function () {
-			alert("حدث خطأ أثناء الإضافة.");
+			alert("Sorry, there was an error adding the item to the cart.");
 		}
 	});
 }
-

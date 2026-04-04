@@ -14,12 +14,14 @@ namespace Tasneem_Shop.DataAccess.Implementation
 
         public IUserRepository User{ get; private set; }
 
+        public IShoppingCartRepository ShoppingCart { get; private set; }
         public UnitOfWork(ApplicationDbContext Context)
         {
             _context = Context;
             Category = new CategoryRepository(Context);
             Product =new ProductRepository(Context);
             User = new UserRepository(Context);
+            ShoppingCart=new ShoppingCartRepository(Context);
         }
         
 
