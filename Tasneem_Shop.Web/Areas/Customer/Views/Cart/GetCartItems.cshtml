@@ -40,9 +40,9 @@
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Total <span>@Model.TotalPrice</span></li>
+                                    <li>Total <span>EGP @Model.TotalPrice</span></li>
                                 </ul>
-                                <a href="#">Proceed to checkout</a>
+                                <a asp-controller="Cart" asp-action="Checkout">Proceed to checkout</a>
                             </div>
                         </div>
                     </div>

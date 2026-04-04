@@ -6,7 +6,7 @@ using Tasneem_Shop.Entities.Models;
 
 namespace Tasneem_Shop.Entities.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository: IGenericRepository<ApplicationUser>
     {
         IEnumerable<ApplicationUser> GetAll(string currentUserId);
 

@@ -8,10 +8,10 @@ using Tasneem_Shop.Entities.Repositories;
 
 namespace Tasneem_Shop.DataAccess.Implementation
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<ApplicationUser>,IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext Context) 
+        public UserRepository(ApplicationDbContext Context) :base(Context)
         {
             _context = Context;
         }

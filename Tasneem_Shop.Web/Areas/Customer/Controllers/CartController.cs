@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using Tasneem_Shop.DataAccess.Implementation;
@@ -21,7 +22,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
             _cartService = cartService;
             _unitOfWork = unitOfWork;
         }
-        
+
 
         public IActionResult AddToCart(int productId, int quantity = 1)
         {
@@ -51,7 +52,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                 }
                 _unitOfWork.Complate();
                 var totalCount = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId).Sum(u => u.Count);
-               
+
                 return Json(new { success = true, cartCount = totalCount });
             }
             else
@@ -97,7 +98,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
 
         }
 
-       
+
         public IActionResult GetCartItems()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -117,15 +118,15 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                     Quantity = item.Count
                 }).ToList();
 
-                var cartItems =new CartVM
+                var cartItems = new CartVM
                 {
-                    CartItems=displayItemsDb,
-                    TotalPrice= displayItemsDb.Sum(item => item.Price * item.Quantity)
+                    CartItems = displayItemsDb,
+                    TotalPrice = displayItemsDb.Sum(item => item.Price * item.Quantity)
                 };
                 return View(cartItems);
 
             }
-            else 
+            else
             {
                 //gest Mode
                 var cookieValue = Request.Cookies[SD.CookieCartName];
@@ -153,11 +154,11 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                     TotalPrice = displayItems.Sum(item => item.Price * item.Quantity)
                 };
                 return View(cartItemsgest);
-            }      
+            }
         }
 
 
-        
+
         public IActionResult RemoveItemFromCart(int id)
         {
 
@@ -174,7 +175,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                 {
                     _unitOfWork.ShoppingCart.Remove(cartItem);
                     _unitOfWork.Complate();
-                 
+
                 }
                 return RedirectToAction("GetCartItems");
 
@@ -209,5 +210,89 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
 
 
         }
-    }  
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var userId = claim.Value;
+            var cartItemsDb = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId, Includeword: "Product");
+            var displayItemsDb = cartItemsDb.Select(item => new CartItemDetailsVM
+            {
+                ProductId = item.ProductId,
+                ProductName = item.Product.Name,
+                Price = item.Product.Price,
+                ImageUrl = item.Product.Img,
+                Quantity = item.Count
+            }).ToList();
+
+            var user = _unitOfWork.User.GetFirstOrDefault(u => u.Id == userId);
+
+            var cartItems = new CartVM
+            {
+                CartItems = displayItemsDb,
+                TotalPrice = displayItemsDb.Sum(item => item.Price * item.Quantity),
+                OrderHeader = new OrderHeader()
+            };
+
+            
+            cartItems.OrderHeader.Name = user.Name;
+            cartItems.OrderHeader.Address = user.Address;
+            cartItems.OrderHeader.City = user.City;
+            cartItems.OrderHeader.Phone = user.PhoneNumber;
+            return View(cartItems);
+
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PlaceOrder(CartVM cartVM)
+        {
+            //1-fetch user
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            //2-fetch cart items (## price)
+            var cartItemsDb = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId, Includeword: "Product");
+
+            //3-change status and order time
+            cartVM.OrderHeader.ApplicationUserId = userId;
+            cartVM.OrderHeader.OrderDate = DateTime.Now;
+            cartVM.OrderHeader.OrderStatus = SD.Pending; 
+            cartVM.OrderHeader.PaymentStatus = SD.Pending;
+
+            //4-validate price
+            cartVM.OrderHeader.TotalPrice = cartItemsDb.Sum(item => item.Price * item.Price);
+
+            //5- save and  take orderheader id to  order details
+            _unitOfWork.OrderHeader.Add(cartVM.OrderHeader);
+            _unitOfWork.Complate();
+
+            //6- orderdetail
+            foreach (var item in cartItemsDb)
+            {
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    ProductId = item.ProductId,
+                    OrderId = cartVM.OrderHeader.Id,
+                    Price = item.Product.Price,
+                    Count = item.Count
+
+                };
+                _unitOfWork.OrderDetail.Add(orderDetail);
+            }
+
+
+
+           //7-remove old shopping cart itesm that checkout 
+            _unitOfWork.ShoppingCart.RemoveRange(cartItemsDb);
+            _unitOfWork.Complate();
+
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }

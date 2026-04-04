@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using Tasneem_Shop.Entities.Models;
+using Tasneem_Shop.Entities.Repositories;
+using Tasneem_Shop.Entities.ViewModels.Customer;
+using Utilities;
 
 namespace Tasneem_Shop.Web.Areas.Identity.Pages.Account
 {
@@ -21,13 +26,17 @@ namespace Tasneem_Shop.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
+        private readonly IUnitOfWork _unitOfWork;
+
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager
+            ,IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         [BindProperty]
@@ -84,6 +93,42 @@ namespace Tasneem_Shop.Web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    //migration cart from gest user to auth user 
+
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    var userId = user.Id;
+                    var cookieValue = Request.Cookies[SD.CookieCartName];
+                    if (!string.IsNullOrEmpty(cookieValue))
+                    {
+                        var cartItemsFromCookie = JsonConvert.DeserializeObject<List<CartItemVM>>(cookieValue);
+
+                        foreach (var item in cartItemsFromCookie)
+                        {
+                              var cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.UserId == userId && u.ProductId == item.ProductId);
+
+                            if (cartFromDb == null)
+                            {
+                                _unitOfWork.ShoppingCart.Add(new ShoppingCart
+                                {
+                                    UserId = userId,
+                                    ProductId = item.ProductId,
+                                    Count = item.Quantity,
+                                    Id = 0
+                                });
+                            }
+                            else
+                            {
+                                cartFromDb.Count += item.Quantity;
+                            }
+                        }
+ 
+                        _unitOfWork.Complate ();
+
+
+                        Response.Cookies.Delete(SD.CookieCartName);
+                    }
+
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

@@ -1,0 +1,99 @@
+﻿@model CartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<Tasneem_Shop.Utilities.StripeData> Stripe
+
+<div class="checkout-area pt-60 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <form action="#">
+                    <div class="checkbox-form">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Full Name <span class="required">*</span></label>
+                                    <input asp-for ="OrderHeader.Name" placeholder="" type="text">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Address <span class="required">*</span></label>
+                                    <input asp-for="OrderHeader.Address" placeholder="Street address" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>City <span class="required">*</span></label>
+                                    <input asp-for="OrderHeader.City" placeholder="City" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Phone  <span class="required">*</span></label>
+                                    <input asp-for="OrderHeader.Phone" type="text">
+                                </div>
+                            </div>
+                        </div>
+                                              
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="your-order">
+                    <h3>Order Summary</h3>
+                    <div class="your-order-table table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="cart-product-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.CartItems)
+                                {
+                                    
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <div class="d-flex align-items-center">
+                                                <img src="~/@order.ImageUrl"
+                                                     style="height:50px; width:50px; object-fit:cover;"
+                                                     class="img-thumbnail me-3"
+                                                     alt="Product Image">
+        
+                                                <div>
+                                                    <span class="product-name-text">@order.ProductName</span>
+                                                    <strong class="product-quantity ms-2" style="color: #e80f0f;"> × @order.Quantity</strong>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart-product-total"><span class="amount" >EGP @(order.Quantity * order.Price)</span></td>
+                                    </tr>
+                                    
+                                }
+
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr class="order-total">
+                                    <th>Order Total</th>
+                                    <td><strong><span class="amount ">EGP @Model.TotalPrice</span></strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-accordion">
+                            <div class="order-button-payment">
+                                <input value="Place order" type="submit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

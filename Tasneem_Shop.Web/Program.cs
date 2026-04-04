@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Stripe;
 using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.DataAccess.Implementation;
 using Tasneem_Shop.Entities.Repositories;
 using Tasneem_Shop.Entities.Servies;
+using Tasneem_Shop.Utilities;
 using Utilities;
 
 namespace Tasneem_Shop.Web
@@ -41,6 +43,8 @@ namespace Tasneem_Shop.Web
 
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
+            builder.Services.Configure<StripeData>(builder.Configuration.GetSection("Stripe"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -53,6 +57,8 @@ namespace Tasneem_Shop.Web
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe :SecretKey").Get<string>();
 
             app.UseAuthorization();
 
