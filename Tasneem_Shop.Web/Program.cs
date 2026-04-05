@@ -58,7 +58,7 @@ namespace Tasneem_Shop.Web
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe :SecretKey").Get<string>();
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
             app.UseAuthorization();
 

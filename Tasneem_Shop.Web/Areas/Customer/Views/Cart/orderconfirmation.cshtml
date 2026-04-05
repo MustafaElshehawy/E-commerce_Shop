@@ -1,0 +1,33 @@
+﻿@model int
+<div class="container pb-5">
+    <div class="card shadow border-0 mt-4">
+        <div class="card-body p-5">
+            <div class="row align-items-center">
+                <div class="col-md-7 text-center text-md-start">
+                    <span class="badge bg-warning mb-2 p-2 px-3">Order Confirmed</span>
+                    <h1 class="display-5 fw-bold text-dark">Thank You for Your Purchase</h1>
+                    <p class="lead text-muted">
+                        Your order number is: <strong class="text-warning">#@Model</strong>
+                    </p>
+                    <hr class="my-4" />
+                                     
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> We’ve received your order and it's being processed.</li>             
+                    </ul>
+
+                    <div class="mt-4">
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-dark btn-lg px-4 ms-2">
+                            Back to Shop
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-5 text-center mt-5 mt-md-0">
+                    
+                    <img src="~/customer/images/success/success.png" alt="Success Order" class="img-fluid" style="max-height: 350px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

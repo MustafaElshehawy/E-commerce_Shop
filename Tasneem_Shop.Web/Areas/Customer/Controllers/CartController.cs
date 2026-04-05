@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Stripe.Checkout;
 using System.Security.Claims;
-using Tasneem_Shop.DataAccess.Implementation;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
 using Tasneem_Shop.Entities.Servies;
+using Tasneem_Shop.Entities.ViewModels;
 using Tasneem_Shop.Entities.ViewModels.Customer;
 using Utilities;
 
@@ -239,7 +241,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                 OrderHeader = new OrderHeader()
             };
 
-            
+
             cartItems.OrderHeader.Name = user.Name;
             cartItems.OrderHeader.Address = user.Address;
             cartItems.OrderHeader.City = user.City;
@@ -262,11 +264,11 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
             //3-change status and order time
             cartVM.OrderHeader.ApplicationUserId = userId;
             cartVM.OrderHeader.OrderDate = DateTime.Now;
-            cartVM.OrderHeader.OrderStatus = SD.Pending; 
+            cartVM.OrderHeader.OrderStatus = SD.Pending;
             cartVM.OrderHeader.PaymentStatus = SD.Pending;
 
             //4-validate price
-            cartVM.OrderHeader.TotalPrice = cartItemsDb.Sum(item => item.Price * item.Price);
+            cartVM.OrderHeader.TotalPrice = cartItemsDb.Sum(item => item.Price * item.Count);
 
             //5- save and  take orderheader id to  order details
             _unitOfWork.OrderHeader.Add(cartVM.OrderHeader);
@@ -286,13 +288,74 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                 _unitOfWork.OrderDetail.Add(orderDetail);
             }
 
+            //
+            var domain = "https://localhost:7094/";
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>(),
 
+                Mode = "payment",
+                SuccessUrl = domain + $"customer/cart/orderconfirmation?id={cartVM.OrderHeader.Id}",
+                CancelUrl = domain + $"customer/cart/index",
+            };
 
-           //7-remove old shopping cart itesm that checkout 
-            _unitOfWork.ShoppingCart.RemoveRange(cartItemsDb);
+            //data
+            foreach (var item in cartItemsDb)
+            {
+
+                var sessionlineoption = new SessionLineItemOptions
+                {
+
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)(item.Product.Price * 100),
+                        Currency = "egp",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = item.Product.Name,
+                        },
+                    },
+                    Quantity = item.Count,
+                };
+                options.LineItems.Add(sessionlineoption);
+
+            }
+
+            var service = new SessionService();
+            Session session = service.Create(options);
+
+            
+            cartVM.OrderHeader.SessionId = session.Id;
             _unitOfWork.Complate();
 
-            return RedirectToAction("Index", "Home");
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+
+            
+
+
+        }
+
+        public IActionResult orderconfirmation(int id)
+        {
+            //check paid from Stripe
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            var service = new SessionService();
+            Session session = service.Get(orderHeader.SessionId);
+            if (session.PaymentStatus.ToLower() == "paid")
+            {
+                orderHeader.PaymentIntentId = session.PaymentIntentId;
+
+                _unitOfWork.OrderHeader.UpdateOrderStatus(id, SD.Approve, SD.Approve);
+                _unitOfWork.Complate();
+            
+            }
+            //7 - remove old shopping cart itesm that checkout
+            var shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == orderHeader.ApplicationUserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+            _unitOfWork.Complate();
+            return View(id);
+
         }
     }
 }
