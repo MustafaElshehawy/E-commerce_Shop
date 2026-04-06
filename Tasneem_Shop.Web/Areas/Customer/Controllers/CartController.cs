@@ -268,7 +268,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
             cartVM.OrderHeader.PaymentStatus = SD.Pending;
 
             //4-validate price
-            cartVM.OrderHeader.TotalPrice = cartItemsDb.Sum(item => item.Price * item.Count);
+            cartVM.OrderHeader.TotalPrice = cartItemsDb.Sum(item => item.Product.Price * item.Count);
 
             //5- save and  take orderheader id to  order details
             _unitOfWork.OrderHeader.Add(cartVM.OrderHeader);

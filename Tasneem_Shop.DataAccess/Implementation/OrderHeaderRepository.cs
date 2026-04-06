@@ -4,6 +4,7 @@ using System.Text;
 using Tasneem_Shop.DataAccess.Context;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
+using Tasneem_Shop.Entities.ViewModels;
 
 namespace Tasneem_Shop.DataAccess.Implementation
 {
@@ -26,9 +27,11 @@ namespace Tasneem_Shop.DataAccess.Implementation
             if (orderfromDb != null)
             {
                 orderfromDb.OrderStatus = OrderStatus;
+                orderfromDb.PaymentDate = DateTime.Now;
                 if (PaymentStatus != null)
                 {
                     orderfromDb.PaymentStatus = PaymentStatus;
+                    
                 }
             
             }

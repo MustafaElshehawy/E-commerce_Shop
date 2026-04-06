@@ -1,0 +1,83 @@
+﻿@model IEnumerable<OrderHeader>
+
+@{
+    ViewBag.PageTitle = "Order Management";
+    ViewBag.CardTitle = "All Order";
+
+
+@functions {
+    string GetStatusColor(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning text-dark",
+            "Approve" => "bg-success text-white",
+            "Shipped" => "bg-primary text-white",
+            "Delivere" => "bg-info text-success",
+            "Cancelled" => "bg-danger text-white",
+            _ => "bg-secondary text-white"
+        };
+    }
+}
+}
+<link rel="stylesheet" href="~/css/category.css" />
+
+<a asp-action="Index" asp-controller="Order" asp-route-status="all" class="btn btn-dark">All</a>
+<a asp-action="Index" asp-controller="Order" asp-route-status="Pending" class="btn btn-outline-warning">Orders Pending</a>
+<a asp-action="Index" asp-controller="Order" asp-route-status="Shipped" class="btn btn-outline-primary">Orders Shipped</a>
+<a asp-action="Index" asp-controller="Order" asp-route-status="Approve" class="btn btn-outline-success">Orders Approved</a>
+<a asp-action="Index" asp-controller="Order" asp-route-status="Cancelled" class="btn btn-outline-danger">Orders Cancelled</a>
+
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Phone</th>
+            <th>Order Date</th>
+            <th>Total Price</th>
+            <th>Order Status</th>
+            <th>Payment Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Id
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Name
+                    </div>
+                </td>
+                <td>
+                    <div class="text-truncate-custom">
+                        @item.Phone
+                    </div>
+                </td>
+                <td>@item.OrderDate</td>
+                <td>@item.TotalPrice</td>
+                <td>
+                    <span class="badge @(GetStatusColor(item.OrderStatus))">
+                        @item.OrderStatus
+                    </span>
+                </td>
+                <td>
+                    <i class="fas fa-circle @(item.PaymentStatus == "Approve" ? "text-success" : "text-warning")" style="font-size: 0.6rem;"></i>
+                    @item.PaymentStatus
+                </td>
+                <td>
+                    <a asp-action="OrderDetails" asp-controller="Order" asp-route-id="@item.Id" class="btn btn-dark"><i class="nav-icon 	far fa-eye"></i></a>
+                                      
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -16,6 +16,8 @@
                                 <div class="checkout-form-list">
                                     <label>Full Name <span class="required">*</span></label>
                                     <input asp-for="OrderHeader.Name" placeholder="" type="text">
+                                    <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
+
                                 </div>
                             </div>
                             
@@ -23,18 +25,24 @@
                                 <div class="checkout-form-list">
                                     <label>Address <span class="required">*</span></label>
                                     <input asp-for="OrderHeader.Address" placeholder="Street address" type="text">
+                                    <span asp-validation-for="OrderHeader.Address" class="text-danger"></span>
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>City <span class="required">*</span></label>
                                     <input asp-for="OrderHeader.City" placeholder="City" type="text">
+                                    <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>Phone  <span class="required">*</span></label>
                                     <input asp-for="OrderHeader.Phone" type="text">
+                                    <span asp-validation-for="OrderHeader.Phone" class="text-danger"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -100,3 +108,7 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

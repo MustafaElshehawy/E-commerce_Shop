@@ -53,7 +53,7 @@ namespace Tasneem_Shop.DataAccess.Implementation
                     query.Include(item);
                 }
             }
-            return query.SingleOrDefault();
+            return query.FirstOrDefault();
         }
 
         public void Remove(T entity)

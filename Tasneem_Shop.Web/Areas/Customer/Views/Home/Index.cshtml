@@ -23,7 +23,7 @@
                             {
                                 categoryItems++;
                                 <li class="@(categoryItems>6? "rx-child":"")">
-                             <a href="">@category.Name</a> 
+                                    <a asp-area="Customer" asp-controller="Product" asp-action="GetByCategory" asp-route-category="@category.Name">@category.Name</a>
                              </li>
                             }
                             <li class="rx-parent">
