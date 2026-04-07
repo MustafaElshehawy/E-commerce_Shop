@@ -118,7 +118,7 @@
                                     START SHIPING
                                 </button>
                             }
-                            @if (Model.OrderHeader.OrderStatus != SD.Cancelled || Model.OrderHeader.OrderStatus != SD.Refund)
+                            @if (Model.OrderHeader.OrderStatus != "SD.Cancelled" || Model.OrderHeader.OrderStatus != SD.Refund)
                             {
                                 <button type="submit" asp-action="CancelOrder" class="btn btn-danger flex-fill fw-bold btn-sm py-2 mr-2">
                                     CANCEL ORDER

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OrderHeader>
+
+<div class="container mt-5">
+    <div class="li-section-title ">
+        <h2>
+            <span>My Order</span>
+        </h2>
+                    
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-light text-center p-5 shadow-sm">
+            <p class="lead">There are no previous Orders .</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var order in Model)
+            {
+                <input type="hidden" name="Id" value="@order.Id" />
+                string bgClass = order.OrderStatus switch
+                {
+                    "Pending" => "bg-warning text-dark",
+                    "Approve" => "bg-success",
+                    "Approved" => "bg-success",
+                    "Shipped" => "bg-info",
+                    "Cancelled" => "bg-danger",
+                    _ => "bg-secondary"
+                };
+
+                <div class="col-12 mt-3">
+    <div class="card shadow-sm border border-1 rounded-3 overflow-hidden status-card-@order.OrderStatus.ToLower()" 
+         style="transition: all 0.3s ease; border-color: rgba(0,0,0,0.08) !important;">
+        
+        <div class="card-body p-0">
+            <div class="row g-0 align-items-center text-center text-md-start">
+                    
+                <div class="col-md-2 col-12 p-3 p-md-4 bg-light border-end-md">
+                    <small class="text-muted d-block small fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Order Id</small>
+                    <h5 class="fw-bold mb-0 text-black">#@order.Id</h5>
+                    <small class="text-muted d-block d-md-inline">@order.OrderDate.ToString("dd/MM/yyyy")</small>
+                </div>
+
+                <div class="col-md-5 col-6 p-3 p-md-4 border-end-mobile">
+                    <small class="text-muted d-block small fw-bold text-uppercase" style="font-size: 0.8rem;">Total Price</small>
+                    <span class="fw-bold fs-5 text-dark">@order.TotalPrice.ToString("N2")</span> 
+                    <small class="text-muted fw-normal">EGP</small>
+                </div>
+
+                <div class="col-md-5 col-6 p-3 p-md-4">
+                    <small class="text-muted d-block small fw-bold text-uppercase mb-2" style="font-size: 0.7rem;">Order Status</small>
+                    <span class="badge @bgClass shadow-none px-3 py-2 rounded-pill fw-medium" style="font-size: 0.8rem; min-width: 100px;">
+                        @order.OrderStatus
+                    </span>
+                </div>       
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            }
+        </div>
+    }
+</div>
+
+<style>
+    @@media (max-width: 767.98px) {
+        .border-end-md { border-end: none !important; border-bottom: 1px solid rgba(0,0,0,0.05) !important; }
+        .border-end-mobile { border-right: 1px solid rgba(0,0,0,0.05) !important; }
+        .card-body h5 { font-size: 1.1rem; }
+    }
+
+</style>

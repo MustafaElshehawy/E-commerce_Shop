@@ -91,14 +91,10 @@
                         </div>
                         <!-- Header Logo Area End Here -->
                         <!-- Begin Header Middle Right Area -->
-                        <div class="col-lg-9">
+                        <div class="col-lg-9 ">
                             <!-- Begin Header Middle Searchbox Area -->
-                            <form action="#" class="hm-searchbox">
-                                <select class="nice-select select-search-category">
-                                    <option value="0">All</option>
-                                   
-                                </select>
-                            <input type="text" placeholder="Looking for something?">
+                            <form asp-controller ="Home" asp-action="Search" method="get" class="hm-searchbox">
+                                <input type="text" name="term" placeholder="Looking for something?">
                                 <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                             <!-- Header Middle Searchbox Area End Here -->
@@ -106,12 +102,7 @@
                             <div class="header-middle-right">
                                 <ul class="hm-menu">
                                     <!-- Begin Header Middle Wishlist Area -->
-                                    <li class="hm-wishlist">
-                                        <a href="wishlist.html">
-                                            <span class="cart-item-count2 wishlist-item-count">0</span>
-                                            <i class="fa fa-heart-o"></i>
-                                        </a>
-                                    </li>
+
                                     <!-- Header Middle Wishlist Area End Here -->
                                     <!-- Begin Header Mini Cart Area -->
                                     <li class="hm-minicart">
@@ -139,7 +130,7 @@
                                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                                     <li><a asp-controller="Product" asp-action="Shop">SHOP</a></li>
                                     <li><a asp-controller="Product" asp-action="GetAllHotDeals">Hot Deals</a></li>
-                                        <li><a href="">MY ORDERS</a></li>
+                                        <li><a asp-controller="Order" asp-action="Index">MY ORDERS</a></li>
                                         <!-- Begin Header Bottom Menu Information Area -->
                                         <li class="hb-info f-right p-0 d-sm-none d-lg-block">
                                             <span>Al-Mashaya Al-Olya St, Mansoura, Egypt</span>
@@ -176,7 +167,7 @@
                     <div class="footer-shipping pb-xs-0">
                         <div class="row">
                             <!-- Begin Li's Shipping Inner Box Area -->
-                            <div class="col-lg-3 col-md-3 col-sm-6 pb-xs-45">
+                            <div class="col-6 col-sm-6 col-md-3 col-sm-6 pb-xs-45">
                                 <div class="li-shipping-inner-box">
                                     <div class="shipping-icon">
                                         <img src="~/Customer/images/shipping-icon/1.png" style="width:80% ;height:80%" alt="Shipping Icon">
@@ -189,7 +180,7 @@
                             </div>
                             <!-- Li's Shipping Inner Box Area End Here -->
                             <!-- Begin Li's Shipping Inner Box Area -->
-                            <div class="col-lg-3 col-md-3 col-sm-6 pb-xs-45">
+                            <div class="col-6 col-sm-6 col-md-3 pb-xs-45">
                                 <div class="li-shipping-inner-box">
                                     <div class="shipping-icon">
                                     <img src="~/Customer/images/shipping-icon/2.png" style="width:80% ;height:80%"  alt="Shipping Icon">
@@ -202,7 +193,7 @@
                             </div>
                             <!-- Li's Shipping Inner Box Area End Here -->
                             <!-- Begin Li's Shipping Inner Box Area -->
-                            <div class="col-lg-3 col-md-3 col-sm-6 pb-xs-45">
+                            <div class="col-6 col-sm-6 col-md-3 pb-xs-45">
                                 <div class="li-shipping-inner-box">
                                     <div class="shipping-icon">
                                     <img src="~/Customer/images/shipping-icon/3.png" style="width:75% ;height:90%"  alt="Shipping Icon">
@@ -215,7 +206,7 @@
                             </div>
                             <!-- Li's Shipping Inner Box Area End Here -->
                             <!-- Begin Li's Shipping Inner Box Area -->
-                            <div class="col-lg-3 col-md-3 col-sm-6">
+                            <div class="col-6 col-sm-6 col-md-3">
                                 <div class="li-shipping-inner-box last-child">
                                     <div class="shipping-icon">
                                     <img src="~/Customer/images/shipping-icon/4.png" style="width:70% ;height:90%" alt="Shipping Icon">

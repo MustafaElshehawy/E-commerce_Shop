@@ -2083,6 +2083,60 @@ textarea:focus {
 	font-size: 30px;
 	color: #e80f0f;
 }
+.single-slide {
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: cover !important; 
+	min-height: 340px; 
+	display: flex;
+	align-items: center;
+}
+@media (max-width: 767px) {
+	/* جعل الحاوية مرنة لتوسيط المحتوى رأسياً */
+	.single-slide {
+		display: flex !important;
+		align-items: center !important;
+		height: 220px !important; /* ارتفاع مناسب للموبايل */
+		padding: 10px !important;
+	}
+
+	/* تصغير عرض منطقة النصوص لمنع التداخل مع الصورة */
+	.slider-content {
+		width: 60% !important;
+		padding-left: 15px !important;
+		z-index: 2; /* التأكد إن الكلام فوق أي خلفية */
+	}
+
+		/* تحجيم النصوص */
+		.slider-content h2 {
+			font-size: 16px !important;
+			margin: 5px 0 !important;
+			font-weight: bold;
+		}
+
+		.slider-content h5 {
+			font-size: 12px !important;
+			color: #666;
+		}
+
+		.slider-content h3 {
+			font-size: 14px !important;
+			margin-bottom: 10px !important;
+		}
+
+	/* تصغير حجم الزرار ليتناسب مع المساحة */
+	.slide-btn a {
+		padding: 6px 15px !important;
+		font-size: 11px !important;
+		display: inline-block !important;
+	}
+
+	/* ضبط مكان وحجم الصورة */
+	.single-slide {
+		background-size: 75% !important; /* حجم الصورة بالنسبة للعرض الكلي */
+		background-position: calc(100% - 10px) center !important; /* يخليها يمين مع مسافة بسيطة من الحافة */
+	}
+}
 /*----------------------------------------*/
 /*  2.3 Li's Static Top
 /*----------------------------------------*/
