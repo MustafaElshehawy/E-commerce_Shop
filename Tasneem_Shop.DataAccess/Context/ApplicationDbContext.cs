@@ -26,6 +26,8 @@ namespace Tasneem_Shop.DataAccess.Context
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public DbSet<ProductImage> ProductImages { get; set; }
+
 
     }
 }

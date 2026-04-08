@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace Tasneem_Shop.Entities.ViewModels
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
 
+        [ValidateNever]
+        public List<IFormFile> ImageFiles { get; set; }
     }
 }

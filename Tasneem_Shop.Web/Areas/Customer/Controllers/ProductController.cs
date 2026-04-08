@@ -21,7 +21,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
         }
         public IActionResult Details(int id)
         {
-            var productDetails = _unitOfWork.Product.GetFirstOrDefault(prod => prod.Id == id);
+            var productDetails = _unitOfWork.Product.GetFirstOrDefault(prod => prod.Id == id ,Includeword: "ProductImages");
             return View(productDetails);
         }
 

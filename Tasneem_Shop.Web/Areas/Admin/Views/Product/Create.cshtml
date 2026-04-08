@@ -36,13 +36,20 @@
 
         </div>
         <div class="mb-3">
-            <label asp-for="Product.Img" class="form-label"></label>
+            <label asp-for="Product.Img" class="form-label">Cover Image(Only One)</label>
             <div class="custom-file">
                 <input type="file" name="file"  id="imgfile" class="custom-file-input">
-                <label class="custom-file-label" for="imgfile">Choose file</label>
+                <label class="custom-file-label" for="imgfile">Choose one file</label>
             </div>
             <span asp-validation-for="Product.Img" class="text-danger"></span>
         </div>  
+        <div class="mb-3">
+            <label class="form-label fw-bold">Product Gallery (Max 5 image)</label>
+            <div class="custom-file">
+                <input type="file" name="files" id="galleryfiles" class="custom-file-input" multiple>
+                <label class="custom-file-label" for="galleryfiles">Choose multiple files</label>
+            </div>
+        </div>
         <div class="mb-3">
             <label asp-for="Product.Price" class="form-label"></label>
             <input asp-for="Product.Price" class="form-control" placeholder="Enter Price..." />

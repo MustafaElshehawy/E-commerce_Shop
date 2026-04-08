@@ -50,7 +50,7 @@ namespace Tasneem_Shop.DataAccess.Implementation
             {
                 foreach (var item in Includeword.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query.Include(item);
+                    query = query.Include(item);
                 }
             }
             return query.FirstOrDefault();

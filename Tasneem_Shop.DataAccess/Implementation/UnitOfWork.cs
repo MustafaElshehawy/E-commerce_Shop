@@ -20,6 +20,8 @@ namespace Tasneem_Shop.DataAccess.Implementation
 
         public IOrderDetailRepository OrderDetail { get; private set; }
 
+        public IProductImageRepository ProductImage { get; private set; }
+
         public UnitOfWork(ApplicationDbContext Context)
         {
             _context = Context;
@@ -29,6 +31,7 @@ namespace Tasneem_Shop.DataAccess.Implementation
             ShoppingCart=new ShoppingCartRepository(Context);
             OrderHeader = new OrderHeaderRepository(Context);
             OrderDetail= new OrderDetailRepository(Context);
+            ProductImage=new ProductImageRepository(Context);
         }
         
 

@@ -36,5 +36,9 @@ namespace Tasneem_Shop.Entities.Models
         [Display(Name = "Offer End Date")]
         public DateTime? EndTime { get; set; }
 
+        [ValidateNever]
+        public List<ProductImage> ProductImages { get; set; }
+
+
     }
 }

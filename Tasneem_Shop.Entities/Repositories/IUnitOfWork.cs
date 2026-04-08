@@ -16,6 +16,8 @@ namespace Tasneem_Shop.Entities.Repositories
 
         IOrderHeaderRepository OrderHeader { get; }
 
+        IProductImageRepository ProductImage { get; }
+
         int Complate();
     }
 }

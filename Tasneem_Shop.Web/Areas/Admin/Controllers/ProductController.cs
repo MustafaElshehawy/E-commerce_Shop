@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Configuration;
 using Tasneem_Shop.Entities.Models;
 using Tasneem_Shop.Entities.Repositories;
@@ -49,7 +50,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Create(ProductVM productVM ,IFormFile file)
+        public IActionResult Create(ProductVM productVM ,IFormFile file , List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
@@ -62,16 +63,46 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                     {
                         Directory.CreateDirectory(upload);
                     }
-                    var ext =Path.GetExtension(file.FileName);
+                    var ext = Path.GetExtension(file.FileName);
 
                     using (var filestream = new FileStream(Path.Combine(upload, filename + ext), FileMode.Create))
                     {
                         file.CopyTo(filestream);
                     }
                     productVM.Product.Img = @"Images\Products\" + filename + ext;
+
                 }
                 _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Complate();
+
+
+                if (files != null && files.Count > 0)
+                {
+                    foreach (var galleryFile in files)
+                    {
+                        string filename = Guid.NewGuid().ToString();
+                        var upload = Path.Combine(RootPath, @"Images\Products\Gallery");
+                        if (!Directory.Exists(upload))
+                        {
+                            Directory.CreateDirectory(upload);
+                        }
+                        var ext = Path.GetExtension(galleryFile.FileName);
+
+                        using (var filestream = new FileStream(Path.Combine(upload, filename + ext), FileMode.Create))
+                        {
+                            galleryFile.CopyTo(filestream);
+                        }
+                        ProductImage productImage = new ProductImage
+                        {
+                            ImageUrl = @"Images\Products\Gallery\" + filename + ext,
+                            ProductId = productVM.Product.Id 
+                        };
+                        _unitOfWork.ProductImage.Add(productImage);
+                    }
+                }
+
+                _unitOfWork.Complate();
+
                 TempData["message"] = "Data Has created succesfully";
 
                 return RedirectToAction("Index");
@@ -85,7 +116,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
             return View(productVM);
         }
 
-
+        //rem add edit images gallery 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -167,16 +198,31 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var ProductInDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
+            var ProductInDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id ,Includeword: "ProductImages");
             if (ProductInDb == null)
             {
                 return NotFound();
             }
             _unitOfWork.Product.Remove(ProductInDb);
+
+            //for cover
+
             var oldImage = Path.Combine(_webHostEnvironment.WebRootPath, ProductInDb.Img.TrimStart('\\'));
             if (System.IO.File.Exists(oldImage))
             {
                 System.IO.File.Delete(oldImage);
+            }
+            //for Gallary
+            if (ProductInDb.ProductImages != null)
+            {
+                foreach (var image in ProductInDb.ProductImages)
+                {
+                    var galleryPath = Path.Combine(_webHostEnvironment.WebRootPath, image.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(galleryPath))
+                    {
+                        System.IO.File.Delete(galleryPath);
+                    }
+                }
             }
             _unitOfWork.Complate();
             TempData["message"] = "Data Has Delete succesfully";
