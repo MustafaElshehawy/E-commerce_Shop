@@ -58,7 +58,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string filename = Guid.NewGuid().ToString();
-                    var upload = Path.Combine(RootPath, @"Images\Products");
+                    var upload = Path.Combine(RootPath, @"Images/Products");
                     if (!Directory.Exists(upload))
                     {
                         Directory.CreateDirectory(upload);
@@ -69,7 +69,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                     {
                         file.CopyTo(filestream);
                     }
-                    productVM.Product.Img = @"Images\Products\" + filename + ext;
+                    productVM.Product.Img = @"Images/Products/" + filename + ext;
 
                 }
                 _unitOfWork.Product.Add(productVM.Product);
@@ -81,7 +81,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                     foreach (var galleryFile in files)
                     {
                         string filename = Guid.NewGuid().ToString();
-                        var upload = Path.Combine(RootPath, @"Images\Products\Gallery");
+                        var upload = Path.Combine(RootPath, @"Images/Products/Gallery");
                         if (!Directory.Exists(upload))
                         {
                             Directory.CreateDirectory(upload);
@@ -94,7 +94,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                         }
                         ProductImage productImage = new ProductImage
                         {
-                            ImageUrl = @"Images\Products\Gallery\" + filename + ext,
+                            ImageUrl = @"Images/Products/Gallery/" + filename + ext,
                             ProductId = productVM.Product.Id 
                         };
                         _unitOfWork.ProductImage.Add(productImage);
@@ -155,7 +155,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var upload = Path.Combine(RootPath, @"Images\Products");
+                    var upload = Path.Combine(RootPath, @"Images/Products");
                     var ext = Path.GetExtension(file.FileName);
                     if (!Directory.Exists(upload))
                     {
@@ -173,7 +173,7 @@ namespace Tasneem_Shop.Web.Areas.Admin.Controllers
                     { 
                         file.CopyTo(filestream);
                     }
-                    productVM.Product.Img = @"Images\Products\" + fileName + ext;
+                    productVM.Product.Img = @"Images/Products/" + fileName + ext;
                 }           
                 _unitOfWork.Product.update(productVM.Product);
                 _unitOfWork.Complate();
