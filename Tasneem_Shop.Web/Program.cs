@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Stripe;
 using Tasneem_Shop.DataAccess.Context;
+using Tasneem_Shop.DataAccess.DbInitializar;
 using Tasneem_Shop.DataAccess.Implementation;
 using Tasneem_Shop.Entities.Repositories;
 using Tasneem_Shop.Entities.Servies;
@@ -45,7 +46,9 @@ namespace Tasneem_Shop.Web
 
             builder.Services.Configure<StripeData>(builder.Configuration.GetSection("Stripe"));
 
-            var app = builder.Build();
+            builder.Services.AddScoped<IDbInitializar,DbInitializar>();
+
+           var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -59,7 +62,7 @@ namespace Tasneem_Shop.Web
             app.UseRouting();
 
             StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
-
+            SeedDb();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -77,6 +80,24 @@ namespace Tasneem_Shop.Web
             
 
             app.Run();
+
+
+            void SeedDb()
+            {
+
+                using (var scope = app.Services.CreateScope())
+                {
+
+                    var dbInitizer = scope.ServiceProvider.GetRequiredService<IDbInitializar>();
+
+                    dbInitizer.Initialize();
+                }
+            }
+
+
         }
+
+
+       
     }
 }

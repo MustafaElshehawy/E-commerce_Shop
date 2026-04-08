@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tasneem_Shop.Entities\Tasneem_Shop.Entities.csproj" />
+    <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
 </Project>
