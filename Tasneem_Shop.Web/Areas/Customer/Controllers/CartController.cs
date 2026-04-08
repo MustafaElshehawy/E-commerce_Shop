@@ -115,7 +115,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                 {
                     ProductId = item.ProductId,
                     ProductName = item.Product.Name,
-                    Price = item.Product.Price,
+                    Price = (item.Product.OfferPrice > 0 && item.Product.OfferPrice < item.Product.Price) ? (item.Product.OfferPrice ?? 0) : item.Product.Price,
                     ImageUrl = item.Product.Img,
                     Quantity = item.Count
                 }).ToList();
@@ -144,7 +144,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
                         {
                             ProductId = product.Id,
                             ProductName = product.Name,
-                            Price = product.Price,
+                            Price = (product.OfferPrice > 0 && product.OfferPrice < product.Price)? (product.OfferPrice ?? 0) : product.Price,
                             ImageUrl = product.Img,
                             Quantity = item.Quantity
                         });
