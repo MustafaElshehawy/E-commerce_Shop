@@ -289,7 +289,7 @@ namespace Tasneem_Shop.Web.Areas.Customer.Controllers
             }
 
             //
-            var domain = "https://tasneem-shop.azurewebsites.net/";
+            var domain = "https://tasneem-shop-bgcdfdd6bqhmg8a6.francecentral-01.azurewebsites.net/";
             var options = new SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>(),
