@@ -362,3 +362,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+
+
+
+# Configuration files (containing sensitive API keys)
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
